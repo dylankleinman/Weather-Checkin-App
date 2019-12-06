@@ -1,0 +1,42 @@
+---------Fetch--------
+1. Call fetch(___) with a path to a file or site to retrieve data
+2. Response in form of a promise, fetch function is asyncronous 
+3. Retrieve data as text, blob, or JSON (or XML)
+4. Make image element <img> with response data or parse your JSON data
+    - Handle Errors
+        Handle errors using a .catch()
+    - use Async/Await instead of .then() possibly
+        create an async function that has an await fetch() method inside, stored in a const.
+
+
+
+-----------CSV------------
+-Stands for comma seperated data, looks like:
+    1. item, Cuteness
+    2. puppy, 10
+    3. kitten, 10 ...
+- Libraries to parse CSV 
+    D3
+    P5.js - loadTable()
+- After fetching data, need to convert to text();
+
+- Libraries to chart data   
+    D3  
+    Chart.js -> will use this 
+
+
+-----------JSON----------
+- stands for JavaScript Object Notation
+- Form will be :
+
+object = {
+    "one" : 1,
+    "two" : 2,
+    "three" : {
+        "three.1" : 3.1,
+    }
+}
+
+- after fetched, need to convert resonse to .json();
+
+
