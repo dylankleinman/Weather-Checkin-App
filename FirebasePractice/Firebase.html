@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- <img src="" id="rainbow" width="480"/> -->
+        <script>
+            const url = 'https://burger-builder-d521e.firebaseio.com/ingredients.json';
+            
+            //Get with fetch()
+            const getIngredients = async () => {
+                const res = await fetch('https://burger-builder-d521e.firebaseio.com/ingredients.json');
+                const data = await res.json();
+                console.log(data);
+            }
+
+            //getIngredients();
+
+            const data = {
+                        'bacon':0,
+                        'cheese': 1,
+                        'meat': 1,
+                        'salad': 2,
+                        }
+
+            //With jQuery
+            $(function(){
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: res => {
+                        console.log(res);
+                    }
+                })
+
+                // $.ajax({
+                //     url: url,
+                //     type: 'POST',
+                //     data: data,
+                //     dataType: 'json',
+                //     success: res => {
+                //         console.log(res);
+                //     },
+                //     error: res => {
+                //         console.log(res);
+                //     }
+                // })
+
+                $.post(url, JSON.stringify(data), function (data, status){
+                    console.log(status);
+                });
+
+            })
+        </script>
+        
+    </body>
+</html>
