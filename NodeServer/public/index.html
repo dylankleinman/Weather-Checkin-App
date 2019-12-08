@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
+
+    </head>
+    <body>
+        <script>
+            if('geolocation' in navigator){
+                console.log('geo is available');
+                navigator.geolocation.getCurrentPosition(async pos => {
+                    console.log(pos.coords.latitude, pos.coords.longitude)
+                    const lat = pos.coords.latitude;
+                    const lon = pos.coords.longitude;
+                    document.getElementById('latitude').append(pos.coords.latitude);
+                    document.getElementById('longitude').append(pos.coords.longitude);
+
+                    document.getElementById('button').addEventListener('click', async event => {
+                        const data = {
+                        lat,
+                        lon
+                        }
+
+                        const options = {
+                            method: 'post',
+                            body: JSON.stringify(data),
+                            headers:{
+                                'Content-Type' : 'application/json'
+                            }
+                        }
+                        const response =  await fetch('/api', options);
+                        const json = await response.json();
+                        console.log(json);
+                    })
+                    
+                });
+            } else {
+                console.log('geo is not available');
+            }
+
+        </script>
+        <h1>Data Selfie App</h1>
+        <p>
+            <span id="latitude">latitude: </span>&deg;</br>
+            <span id="longitude">longitude: </span>&deg;
+        </p>
+        <button id="button">submit</button>
+    </body>
+</html>

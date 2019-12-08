@@ -39,4 +39,88 @@ object = {
 
 - after fetched, need to convert resonse to .json();
 
+-----------Ways to fetch--------------
+
+1) fetch()
+
+    fetch('url').then(res=> {
+        res.json();
+    }).then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err);
+    })
+
+        ------or------
+    const fetchingData = async () => {
+        const res = await fetch('url');
+        const data = await res.json();
+        console.log(data);
+    }
+
+2) jQuery
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function(data) {
+            console.log(data);
+        }
+        error: function(err){
+            console.log(err);
+        }
+    })
+
+    ----or----
+
+    $.get('url', (res, status) => {
+        console.log(res, status);
+    })
+
+3) Axios
+
+    axios.get(url).then(data => {
+        console.log(data);
+    })
+
+-----------Ways to Post--------------
+
+1) jQuery
+
+    $.ajax({
+        type: "POST"
+        url: url,
+        data: data (in object format)
+        success: function(res){
+            console.log(res);
+        }
+    });
+
+    $.post(url, data, function(res, status) {
+        console.log(res, status);
+    })
+
+2) Axios 
+
+    axios({
+        method: 'post',
+        url : url,
+        data : {}
+    }).then(res => {
+        console.log(res);
+    })
+
+
+--------------Using node and express to serve website--------------
+
+- install express npm install express
+- inside of the file you intend to serve from (js file) require express and creat app with const app = express();
+- you can then listen on a port serving some file with: 
+    app.listen(3001, console.log('listening at 3001'))  //listen at port of choosing
+    app.use(express.static('public'));
+- JS that is used for html files is rendered in client and sent as raw text, JS ran on server is never seen my client
+- generally want to authenticate on the server, if authentication on the client then the client could minipulate
+- On the server side, you can use app.post('/url', (request, response) => { deal with request }) to handle posts to the server
+- nedb is a lightweight local database https://github.com/louischatriot/nedb
+- 
 

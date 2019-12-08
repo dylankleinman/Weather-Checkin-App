@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
+
+    </head>
+    <body>
+        <h1>Retreiving Location Data</h1>
+        <div id="data"></div>
+        <script>
+            async function getData () {
+                const response = await fetch('/api');
+                const data = await response.json();
+                console.log(data);
+                data.forEach(element => {
+                    let div = document.createElement('div');
+                    div.textContent = ('lat: ' + element.lat + ' lon: ' +element.lon);
+                    document.getElementById('data').append(div);
+                });
+            }
+
+            getData();
+        </script>
+    </body>
+</html>

@@ -9,38 +9,58 @@
     <body>
         <!-- <img src="" id="rainbow" width="480"/> -->
         <script>
-            const url = 'https://burger-builder-d521e.firebaseio.com/ingredients.json';
+            const url = 'https://burger-builder-d521e.firebaseio.com/orders.json';
             
             //Get with fetch()
             const getIngredients = async () => {
-                const res = await fetch('https://burger-builder-d521e.firebaseio.com/ingredients.json');
+                const res = await fetch('https://burger-builder-d521e.firebaseio.com/orders.json');
                 const data = await res.json();
-                console.log(data);
+                console.log('data fetched with fetch()' , data);
             }
 
-            //getIngredients();
+            getIngredients();
 
+            // define data object you want to send to database in correct format
             const data = {
-                        'bacon':0,
-                        'cheese': 1,
-                        'meat': 1,
-                        'salad': 2,
-                        }
+                customer : {
+                    address : {
+                        country : 'USA',
+                        street : 'teststreet',
+                        zipCode : 'test zip code'
+                    },
+                    deliveryMethod : 'takeout boii',
+                    email : 'dylan@dylan.com',
+                    name : 'testing from diff app',
+                },
+                ingredients : {
+                    bacon : 12,
+                    cheese : 15,
+                    meat : 99,
+                    salad : 2
+                },
+                price : 4000000
+            }
 
             //With jQuery
             $(function(){
+                // -----------------.ajax get function-----------------
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: res => {
-                        console.log(res);
+                        console.log('data fetched with jQuery ajax GET', res);
                     }
                 })
 
+                $.get(url, res => {
+                    console.log('data fetched with jQuery .get', res);
+                })
+
+                // -----------------.ajax post function-----------------
                 // $.ajax({
                 //     url: url,
                 //     type: 'POST',
-                //     data: data,
+                //     data: JSON.stringify(data),
                 //     dataType: 'json',
                 //     success: res => {
                 //         console.log(res);
@@ -50,9 +70,10 @@
                 //     }
                 // })
 
-                $.post(url, JSON.stringify(data), function (data, status){
-                    console.log(status);
-                });
+                // -----------------.post method------------------
+                // $.post(url, JSON.stringify(data), function (data, status){
+                //     console.log(status);
+                // });
 
             })
         </script>
