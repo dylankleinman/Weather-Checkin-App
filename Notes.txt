@@ -142,6 +142,18 @@ object = {
 
 
 
+
 --------------deploying to web-----------------
 - glitch is an online code editor, but can run our code.  Make sure to use process.env.PORT as port to listen
-
+    - notes about glitch: 
+        - when inserting token to .env_sample, no spaces are allowed
+        - not sure if index needs to be in root, but in package.json which I put in root, need to add start command to scripts:
+            "start": "node index.js" 
+        - server is currently: https://dylankleinman-data-api-1.glitch.me/all.html
+- heroku 
+    - heroku uses a CLI (command line interface) that needs to be installed
+    - heroku login from the command line
+    - After project creation, add git repository to heroku with git push heroku master
+        - notice that the API key needs to be set, use: 
+            heroku config:set API_KEY=b8aa1cbaa9f39412bb752e90b01c6d82
+            
