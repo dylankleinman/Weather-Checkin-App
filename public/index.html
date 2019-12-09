@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
+        <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+    </head>
+    <body>
+        <script>
+                if('geolocation' in navigator){
+                    console.log('geo is available');
+                    let lat, lon, weather, air;
+                    navigator.geolocation.getCurrentPosition(async pos => {
+                        try{
+                            console.log(pos.coords.latitude, pos.coords.longitude)
+                            lat = pos.coords.latitude.toFixed(2);
+                            lon = pos.coords.longitude.toFixed(2);
+                            document.getElementById('latitude').append(lat);
+                            document.getElementById('longitude').append(lon);
+                            
+                            //const apiURL = 'weather/'+lat+','+lon;
+                            const apiURL = '/weather/'+lat+','+lon;
+                            const response = await fetch(apiURL);
+                            const json = await response.json();
+                            console.log(json);
+
+                            weather = json.weather;
+
+                            document.getElementById('summary').textContent = weather.currently.summary;
+                            document.getElementById('temperature').textContent = weather.currently.temperature;
+                            document.getElementById('location').textContent = weather.timezone;
+
+                            air = json.airQuality.results[0].measurements[0];
+                            document.getElementById('air').textContent = air.value + air.unit;
+                            
+                        } catch (error) {
+                            air = {value: -1};
+                            console.log('something went wrong',error);
+                        }
+                        const data = {
+                            lat,
+                            lon,
+                            weather,
+                            air
+                        }
+                        const options = {
+                            method: 'post',
+                            body: JSON.stringify(data),
+                            headers:{
+                                'Content-Type' : 'application/json'
+                            }
+                        }
+                        const post_response =  await fetch('/api', options);
+                        const post_json = await post_response.json();
+                        console.log('response from our server: ', post_json);
+                    });
+                } else {
+                    console.log('geo is not available');
+                }
+
+        </script>
+        <h1>Data Selfie App</h1>
+        <a href="./">Enter Data</a> | <a href="./all.html">Data List</a>
+        <p>
+            <span id="latitude">latitude: </span>&deg;</br>
+            <span id="longitude">longitude: </span>&deg;
+        </p>
+        <div>
+            <span>
+                <span>the weather in <span id="location"></span> is: <span id="summary"></span></span></br>
+                <span>the temp is: <span id="temperature"></span>&deg;Fahrenheit</span>
+            </span>
+        </div>
+        <div>
+                <span>
+                    <span>the air quality is: <span id="air"></span></span></br>
+                </span>
+            </div>
+    </body>
+</html>
