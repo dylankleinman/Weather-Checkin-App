@@ -139,3 +139,9 @@ object = {
 - npm install dotenv is a tool, requres: require('dotenv').config(); in server code
 - environment vaiables in servers can be accessed through process.env.[your varaible]
 
+
+
+
+--------------deploying to web-----------------
+- glitch is an online code editor, but can run our code.  Make sure to use process.env.PORT as port to listen
+

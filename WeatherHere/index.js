@@ -4,8 +4,9 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 const app = express();  //create the application
+const port = process.env.PORT || 3000  //port equals port or 3000
 
-app.listen(3001, console.log('listening at 3001'))  //listen at port of choosing
+app.listen(port, console.log('listening at port '+port))  //listen at port of choosing. syntax for local is app.listen(3001, console.log('listening at 3001')).
 app.use(express.static('public'));
 app.use(express.json({limit: '1mb'}));
 
