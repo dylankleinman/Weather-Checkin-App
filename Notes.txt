@@ -122,5 +122,20 @@ object = {
 - generally want to authenticate on the server, if authentication on the client then the client could minipulate
 - On the server side, you can use app.post('/url', (request, response) => { deal with request }) to handle posts to the server
 - nedb is a lightweight local database https://github.com/louischatriot/nedb
-- 
+
+
+--------------Using an external API-----------------
+- Using something with good documentation, example: darksky.net
+    Darksky requires key, which is used in api url string 
+- How to deal with CORS error:  
+    As can be read here: 
+    the CORS error happens when the api is being accessed through client side code.  For security reasons, it only allows server side code
+    To deal with this, have the api call in your server in its own .get(), where the client calls this url which then calls the weather api
+- node-fetch is required in order to use fetch() server-side
+
+
+--------------hiding api keys-----------------
+- generall a good idea to use environment vairables
+- npm install dotenv is a tool, requres: require('dotenv').config(); in server code
+- environment vaiables in servers can be accessed through process.env.[your varaible]
 

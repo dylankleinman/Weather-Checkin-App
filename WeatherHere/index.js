@@ -1,5 +1,7 @@
 const express = require('express');  //require express to start server 
 const Datastore = require('nedb');
+const fetch = require('node-fetch');
+require('dotenv').config();
 
 const app = express();  //create the application
 
@@ -29,3 +31,24 @@ app.get("/api", (request, response) => {
         response.json(data);
     })
 })
+
+app.get("/weather/:latlon", async (request, response) => {
+    console.log(request.params);
+    const api_key = process.env.API_KEY;
+    const latlon = request.params.latlon.split(',');
+    const weather_URL = 'https://api.darksky.net/forecast/'+api_key+'/'+latlon[0]+','+latlon[1];
+    const weather_Response = await fetch(weather_URL);
+    const weather_data = await weather_Response.json();
+
+    const airQuality_URL = 'https://api.openaq.org/v1/latest?coordinates='+latlon[0]+','+latlon[1];
+    const airQuality_Response = await fetch(airQuality_URL);
+    const airQuality_data = await airQuality_Response.json();
+
+    const data = {
+        weather: weather_data,
+        airQuality : airQuality_data
+    }
+    
+    response.json(data);
+})
+

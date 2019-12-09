@@ -4,10 +4,11 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
-
+        <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
     </head>
     <body>
         <h1>Retreiving Location Data</h1>
+        <a href="./">Enter Data</a> | <a href="./all.html">Data List</a>
         <div id="data"></div>
         <script>
             async function getData () {
@@ -16,7 +17,7 @@
                 console.log(data);
                 data.forEach(element => {
                     let div = document.createElement('div');
-                    div.textContent = ('lat: ' + element.lat + ' lon: ' +element.lon);
+                    div.textContent = ('lat: ' + element.lat + ' lon: ' +element.lon +' mood: '+element.userMood);
                     document.getElementById('data').append(div);
                 });
             }
