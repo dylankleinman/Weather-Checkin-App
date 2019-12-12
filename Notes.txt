@@ -156,4 +156,4 @@ object = {
     - After project creation, add git repository to heroku with git push heroku master
         - notice that the API key needs to be set, use: 
             heroku config:set API_KEY=b8aa1cbaa9f39412bb752e90b01c6d82
-            
+        - currently deployed: https://weather-checkin-app.herokuapp.com/

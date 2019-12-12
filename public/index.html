@@ -5,6 +5,99 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
         <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+        <style>
+            body{
+                
+            }
+            .outer{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .container {
+                width: 300px;
+                background-color: rgb(137, 171, 235);
+                margin-top: 10%;
+                text-align: center;
+                border-radius: 10px;
+                border: 0.5px solid gray;
+                box-shadow: 5px 5px 10px gray;
+                padding: 20px 100px;
+                white-space: nowrap;
+            }
+            .text{
+                padding: 10px 0px;
+            }
+
+            #submit{
+                background: transparent;
+                width: 75px;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+
+            #submit:hover{
+                cursor: pointer;
+            }
+
+            .lds-ellipsis {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            }
+            .lds-ellipsis div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fff;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+            }
+            .lds-ellipsis div:nth-child(1) {
+            left: 8px;
+            animation: lds-ellipsis1 0.6s infinite;
+            }
+            .lds-ellipsis div:nth-child(2) {
+            left: 8px;
+            animation: lds-ellipsis2 0.6s infinite;
+            }
+            .lds-ellipsis div:nth-child(3) {
+            left: 32px;
+            animation: lds-ellipsis2 0.6s infinite;
+            }
+            .lds-ellipsis div:nth-child(4) {
+            left: 56px;
+            animation: lds-ellipsis3 0.6s infinite;
+            }
+            @keyframes lds-ellipsis1 {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+            }
+            @keyframes lds-ellipsis3 {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0);
+            }
+            }
+            @keyframes lds-ellipsis2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(24px, 0);
+            }
+            }
+
+        </style>
     </head>
     <body>
         <script>
@@ -25,57 +118,79 @@
                             const json = await response.json();
                             console.log(json);
 
-                            weather = json.weather;
+                            try{
+                                weather = json.weather;
+                                document.getElementById('summary').textContent = weather.currently.summary;
+                                document.getElementById('temperature').textContent = weather.currently.temperature;
+                                document.getElementById('location').textContent = weather.timezone;
+                            } catch {
 
-                            document.getElementById('summary').textContent = weather.currently.summary;
-                            document.getElementById('temperature').textContent = weather.currently.temperature;
-                            document.getElementById('location').textContent = weather.timezone;
+                            }
 
-                            air = json.airQuality.results[0].measurements[0];
-                            document.getElementById('air').textContent = air.value + air.unit;
-                            
+                            try{
+                                air = json.airQuality.results[0].measurements[0];
+                                document.getElementById('air').textContent = air.value + air.unit;
+                            } catch {
+                                document.getElementById('air').textContent = "Cannot get air quality in your area";
+                            }
+                            document.getElementById("spinner").style.display = "none";
+                            document.getElementById("data").style.display = "block";
                         } catch (error) {
                             air = {value: -1};
                             console.log('something went wrong',error);
                         }
-                        const data = {
+
+                        document.getElementById("submit").addEventListener("click", async function(){
+                            const data = {
                             lat,
                             lon,
                             weather,
                             air
-                        }
-                        const options = {
-                            method: 'post',
-                            body: JSON.stringify(data),
-                            headers:{
-                                'Content-Type' : 'application/json'
                             }
-                        }
-                        const post_response =  await fetch('/api', options);
-                        const post_json = await post_response.json();
-                        console.log('response from our server: ', post_json);
+                            const options = {
+                                method: 'post',
+                                body: JSON.stringify(data),
+                                headers:{
+                                    'Content-Type' : 'application/json'
+                                }
+                            }
+                            const post_response =  await fetch('/api', options);
+                            const post_json = await post_response.json();
+                            console.log('response from our server: ', post_json);
+                            if(post_json){
+                                alert('Successfully Checked In');
+                            }
+                        });
                     });
                 } else {
                     console.log('geo is not available');
                 }
 
         </script>
-        <h1>Data Selfie App</h1>
-        <a href="./">Enter Data</a> | <a href="./all.html">Data List</a>
-        <p>
-            <span id="latitude">latitude: </span>&deg;</br>
-            <span id="longitude">longitude: </span>&deg;
-        </p>
-        <div>
-            <span>
-                <span>the weather in <span id="location"></span> is: <span id="summary"></span></span></br>
-                <span>the temp is: <span id="temperature"></span>&deg;Fahrenheit</span>
-            </span>
-        </div>
-        <div>
-                <span>
-                    <span>the air quality is: <span id="air"></span></span></br>
-                </span>
+        <a href="./">Submit Data</a> | <a href="./all.html">View Map</a></br>
+        <div class="outer">
+            <div class="container">
+                <h1>Weather Check In App</h1>
+                <div id="spinner" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <div id="data" style="display: none">
+                    <p>
+                        <span id="latitude">Your Current Latitude: </span>&deg;</br>
+                        <span id="longitude">Your Current Longitude: </span>&deg;
+                    </p>
+                    <div class="text">
+                        <span>
+                            <span>The weather in <span id="location"></span> is: <span id="summary"></span></span></br></br>
+                            <span>The temp is: <span id="temperature"></span>&deg;Fahrenheit</span>
+                        </span>
+                    </div>
+                    <div class="text">
+                        <span>
+                            <span>The air quality is: <span id="air"></span></span></br>
+                        </span>
+                    </div>
+                </div>
+                <button id="submit">Check In</button>
             </div>
+        </div>
     </body>
 </html>
