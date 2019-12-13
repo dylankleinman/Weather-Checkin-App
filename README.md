@@ -1,0 +1,5 @@
+# Data-Api
+
+A Dark Sky API key is needed inside the .env file in order to use the Dark Sky API.  
+  Can be created here: https://darksky.net/dev
+Inside the API key add: API_KEY=[api key]
