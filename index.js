@@ -1,6 +1,7 @@
 const express = require('express');  //require express to start server 
 const Datastore = require('nedb');
 const fetch = require('node-fetch');
+const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 
 const app = express();  //create the application
@@ -31,7 +32,27 @@ app.get("/api", (request, response) => {
         }
         response.json(data);
     })
-})
+});
+
+
+// MongoDB work
+const mongodbURL = 'mongodb+srv://dindinnn2:CUs19ubH863PHBZP@cluster0-ahdgl.gcp.mongodb.net/test?retryWrites=true&w=majority'
+MongoClient.connect(mongodbURL, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    var myobj = { name: "Company Inc", address: "Highway 37" };
+    dbo.collection("customers").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+    });
+
+    dbo.collection("customers").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+    });
+});
 
 app.get("/weather/:latlon", async (request, response) => {
     console.log(request.params);
@@ -49,7 +70,7 @@ app.get("/weather/:latlon", async (request, response) => {
         weather: weather_data,
         airQuality : airQuality_data
     }
-    
+    //response.send({response:'hello'});
     response.json(data);
 })
 

@@ -114,8 +114,8 @@
                             
                             //const apiURL = 'weather/'+lat+','+lon;
                             const apiURL = '/weather/'+lat+','+lon;
-                            const response = await fetch(apiURL);
-                            const json = await response.json();
+                            const response = await fetch(apiURL);  //send get fetch to backend
+                            const json = await response.json();   //store response in json
                             console.log(json);
 
                             try{
@@ -124,7 +124,7 @@
                                 document.getElementById('temperature').textContent = weather.currently.temperature;
                                 document.getElementById('location').textContent = weather.timezone;
                             } catch {
-
+                                console.log('could not get weather and city');
                             }
 
                             try{
