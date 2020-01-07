@@ -14,45 +14,68 @@ app.use(express.json({limit: '1mb'}));
 const database = new Datastore('database.db');
 database.loadDatabase();
 
+const mongodbURL = 'mongodb+srv://dindinnn2:TestPassword123@cluster0-ahdgl.gcp.mongodb.net/test?retryWrites=true&w=majority'
+
 app.post('/api', (request, response) => {
     const data = request.body;
     console.log('request to post: ' , data);
     const timeStamp = Date.now();
     data.timestamp = timeStamp  //add timestamp to our data
-    database.insert(data);  //insert data into db file
+    //database.insert(data);  //insert data into db file (deprecated, now using mongodb)
+
+    // insert data into mongoDB database
+    MongoClient.connect(mongodbURL, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("WeatherCheckInDB");
+        dbo.collection("checkIns").insertOne(data, function(err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+    });
     response.json(data);  //send response to user of their data
 });
 
 app.get("/api", (request, response) => {
     console.log('request to get database');
-    database.find({}, (error, data) => {
-        if(error){
-            response.end();
-            return;
-        }
-        response.json(data);
-    })
+    // database.find({}, (error, data) => {
+    //     if(error){
+    //         response.end();
+    //         return;
+    //     }
+    //     response.json(data);
+    // });
+    MongoClient.connect(mongodbURL, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("WeatherCheckInDB");
+        dbo.collection("checkIns").find({}).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            response.json(result);
+            db.close();
+        });
+    });
 });
 
 
 // MongoDB work
-const mongodbURL = 'mongodb+srv://dindinnn2:CUs19ubH863PHBZP@cluster0-ahdgl.gcp.mongodb.net/test?retryWrites=true&w=majority'
-MongoClient.connect(mongodbURL, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    var myobj = { name: "Company Inc", address: "Highway 37" };
-    dbo.collection("customers").insertOne(myobj, function(err, res) {
-        if (err) throw err;
-        console.log("1 document inserted");
-        db.close();
-    });
+// const mongodbURL = 'mongodb+srv://dindinnn2:CUs19ubH863PHBZP@cluster0-ahdgl.gcp.mongodb.net/test?retryWrites=true&w=majority'
+// MongoClient.connect(mongodbURL, function(err, db) {
+//     if (err) throw err;
+//     var dbo = db.db("mydb");
+//     var myobj = { name: "Company Inc", address: "Highway 37" };
+//     dbo.collection("customers").insertOne(myobj, function(err, res) {
+//         if (err) throw err;
+//         console.log("1 document inserted");
+//         db.close();
+//     });
 
-    dbo.collection("customers").find({}).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-        db.close();
-    });
-});
+//     dbo.collection("customers").find({}).toArray(function(err, result) {
+//         if (err) throw err;
+//         console.log(result);
+//         db.close();
+//     });
+// });
 
 app.get("/weather/:latlon", async (request, response) => {
     console.log(request.params);

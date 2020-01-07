@@ -157,3 +157,33 @@ object = {
         - notice that the API key needs to be set, use: 
             heroku config:set API_KEY=b8aa1cbaa9f39412bb752e90b01c6d82
         - currently deployed: https://weather-checkin-app.herokuapp.com/
+
+
+
+
+-----------------MongoDB-----------------------
+-Mongo db uses clusters as a database, but all stored in JSON
+-A URI Key is needed to access database, after creating a cluster you can connect using mongodb+srv://<username>:<password>@<databasename>.mongodb.net/test?retryWrites=true&w=majority or whatever URL you are given.  
+    - The username and password are set under DataBase Access in your project   
+    - To insert to MongoDB:
+        const mongodbURL = 'mongodb+srv://<username>:<password>@<databasename>.mongodb.net/test?retryWrites=true&w=majority'
+        MongoClient.connect(mongodbURL, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("[data base name]");
+            dbo.collection("[collection name]").insertOne(data, function(err, res) {  // the data parameter needs to be your data in JSON
+                if (err) throw err;
+                console.log("1 document inserted");
+                db.close();
+            });
+        });
+    - To retrieve all data: 
+        MongoClient.connect(mongodbURL, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("[data base name]");
+            dbo.collection("[collection name]").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                console.log(result);
+                //response.json(result);
+                db.close();
+            });
+        });
