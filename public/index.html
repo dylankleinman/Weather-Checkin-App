@@ -5,169 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
         <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
-        <style>
-            body{
-                
-            }
-            .outer{
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .container {
-                width: 300px;
-                background-color: rgb(137, 171, 235);
-                margin-top: 10%;
-                text-align: center;
-                border-radius: 10px;
-                border: 0.5px solid gray;
-                box-shadow: 5px 5px 10px gray;
-                padding: 20px 100px;
-                white-space: nowrap;
-            }
-            .text{
-                padding: 10px 0px;
-            }
-
-            #submit{
-                background: transparent;
-                width: 75px;
-                border: 1px solid black;
-                border-radius: 5px;
-            }
-
-            #submit:hover{
-                cursor: pointer;
-            }
-
-            .lds-ellipsis {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin: auto;
-            }
-            .lds-ellipsis div {
-            position: absolute;
-            top: 33px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #fff;
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
-            }
-            .lds-ellipsis div:nth-child(1) {
-            left: 8px;
-            animation: lds-ellipsis1 0.6s infinite;
-            }
-            .lds-ellipsis div:nth-child(2) {
-            left: 8px;
-            animation: lds-ellipsis2 0.6s infinite;
-            }
-            .lds-ellipsis div:nth-child(3) {
-            left: 32px;
-            animation: lds-ellipsis2 0.6s infinite;
-            }
-            .lds-ellipsis div:nth-child(4) {
-            left: 56px;
-            animation: lds-ellipsis3 0.6s infinite;
-            }
-            @keyframes lds-ellipsis1 {
-            0% {
-                transform: scale(0);
-            }
-            100% {
-                transform: scale(1);
-            }
-            }
-            @keyframes lds-ellipsis3 {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(0);
-            }
-            }
-            @keyframes lds-ellipsis2 {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(24px, 0);
-            }
-            }
-
-        </style>
+        <link rel="stylesheet" href="./css/loading-icon.css" type="text/css">
+        <link rel="stylesheet" href="./css/styles.css" type="text/css">
+        <link rel="stylesheet" href="./css/navbar.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <script>
-                if('geolocation' in navigator){
-                    console.log('geo is available');
-                    let lat, lon, weather, air;
-                    navigator.geolocation.getCurrentPosition(async pos => {
-                        try{
-                            console.log(pos.coords.latitude, pos.coords.longitude)
-                            lat = pos.coords.latitude.toFixed(2);
-                            lon = pos.coords.longitude.toFixed(2);
-                            document.getElementById('latitude').append(lat);
-                            document.getElementById('longitude').append(lon);
-                            
-                            //const apiURL = 'weather/'+lat+','+lon;
-                            const apiURL = '/weather/'+lat+','+lon;
-                            const response = await fetch(apiURL);  //send get fetch to backend
-                            const json = await response.json();   //store response in json
-                            console.log(json);
-
-                            try{
-                                weather = json.weather;
-                                document.getElementById('summary').textContent = weather.currently.summary;
-                                document.getElementById('temperature').textContent = weather.currently.temperature;
-                                document.getElementById('location').textContent = weather.timezone;
-                            } catch {
-                                console.log('could not get weather and city');
-                            }
-
-                            try{
-                                air = json.airQuality.results[0].measurements[0];
-                                document.getElementById('air').textContent = air.value + air.unit;
-                            } catch {
-                                document.getElementById('air').textContent = "Cannot get air quality in your area";
-                            }
-                            document.getElementById("spinner").style.display = "none";
-                            document.getElementById("data").style.display = "block";
-                        } catch (error) {
-                            air = {value: -1};
-                            console.log('something went wrong',error);
-                        }
-
-                        document.getElementById("submit").addEventListener("click", async function(){
-                            const data = {
-                            lat,
-                            lon,
-                            weather,
-                            air
-                            }
-                            const options = {
-                                method: 'post',
-                                body: JSON.stringify(data),
-                                headers:{
-                                    'Content-Type' : 'application/json'
-                                }
-                            }
-                            const post_response =  await fetch('/api', options);
-                            const post_json = await post_response.json();
-                            console.log('response from our server: ', post_json);
-                            if(post_json){
-                                alert('Successfully Checked In');
-                            }
-                        });
-                    });
-                } else {
-                    console.log('geo is not available');
-                }
-
-        </script>
-        <a href="./">Submit Data</a> | <a href="./all.html">View Map</a></br>
+        <script src="./js/checkin.js"></script>
+        <nav class="navbar">
+            <span><i class="fa fa-cloud"></i>Weather Checkin App</span>
+            <ul class="nav-links">
+                <a href="/"><li class="nav-item">Check In</li></a>
+                <a href="/all.html"><li class="nav-item">Map</li></a>
+            </ul>
+        </nav>
         <div class="outer">
             <div class="container">
                 <h1>Weather Check In App</h1>

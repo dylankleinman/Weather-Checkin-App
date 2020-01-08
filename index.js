@@ -37,7 +37,7 @@ app.post('/api', (request, response) => {
 });
 
 app.get("/api", (request, response) => {
-    console.log('request to get database');
+    //console.log('request to get database');
     // database.find({}, (error, data) => {
     //     if(error){
     //         response.end();
@@ -57,28 +57,8 @@ app.get("/api", (request, response) => {
     });
 });
 
-
-// MongoDB work
-// const mongodbURL = 'mongodb+srv://dindinnn2:CUs19ubH863PHBZP@cluster0-ahdgl.gcp.mongodb.net/test?retryWrites=true&w=majority'
-// MongoClient.connect(mongodbURL, function(err, db) {
-//     if (err) throw err;
-//     var dbo = db.db("mydb");
-//     var myobj = { name: "Company Inc", address: "Highway 37" };
-//     dbo.collection("customers").insertOne(myobj, function(err, res) {
-//         if (err) throw err;
-//         console.log("1 document inserted");
-//         db.close();
-//     });
-
-//     dbo.collection("customers").find({}).toArray(function(err, result) {
-//         if (err) throw err;
-//         console.log(result);
-//         db.close();
-//     });
-// });
-
 app.get("/weather/:latlon", async (request, response) => {
-    console.log(request.params);
+    //console.log(request.params);
     const api_key = process.env.API_KEY;
     const latlon = request.params.latlon.split(',');
     const weather_URL = 'https://api.darksky.net/forecast/'+api_key+'/'+latlon[0]+','+latlon[1];
