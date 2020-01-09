@@ -1,47 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="X-UA-Compatibale" content="ie=edge"/>
-        <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
-        <link rel="stylesheet" href="./css/loading-icon.css" type="text/css">
-        <link rel="stylesheet" href="./css/styles.css" type="text/css">
-        <link rel="stylesheet" href="./css/navbar.css" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <script src="./js/checkin.js"></script>
-        <nav class="navbar">
-            <span><i class="fa fa-cloud"></i>Weather Checkin App</span>
-            <ul class="nav-links">
-                <a href="/"><li class="nav-item">Check In</li></a>
-                <a href="/all.html"><li class="nav-item">Map</li></a>
-            </ul>
-        </nav>
-        <div class="outer">
-            <div class="container">
-                <h1>Weather Check In App</h1>
-                <div id="spinner" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                <div id="data" style="display: none">
-                    <p>
-                        <span id="latitude">Your Current Latitude: </span>&deg;</br>
-                        <span id="longitude">Your Current Longitude: </span>&deg;
-                    </p>
-                    <div class="text">
-                        <span>
-                            <span>The weather in <span id="location"></span> is: <span id="summary"></span></span></br></br>
-                            <span>The temp is: <span id="temperature"></span>&deg;Fahrenheit</span>
-                        </span>
-                    </div>
-                    <div class="text">
-                        <span>
-                            <span>The air quality is: <span id="air"></span></span></br>
-                        </span>
-                    </div>
-                </div>
-                <button id="submit">Check In</button>
-            </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatibale" content="ie=edge" />
+    <meta name="google-signin-client_id"
+        content="666238629050-niqn5ccb7vbkrkq1kpj49qm3k7prbs5d.apps.googleusercontent.com">
+    <link rel="stylesheet" href="./css/loading-icon.css" type="text/css">
+    <link rel="stylesheet" href="./css/styles.css" type="text/css">
+    <link rel="stylesheet" href="./css/navbar.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <script src="./js/checkin.js"></script>
+    <nav class="navbar">
+        <span id="title"><i class="fa fa-cloud"></i>Weather Checkin App</span>
+        <ul class="nav-links">
+            <a href="/">
+                <li class="nav-item">Check In</li>
+            </a>
+            <a href="/all.html">
+                <li class="nav-item">Map</li>
+            </a>
+            <div class="g-signin2 show" data-onsuccess="onSignIn" id="login"></div>
+            <i class="fa fa-user-circle-o hidden" id="profile" style="font-size:30px;"></i>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
         </div>
-    </body>
+    </nav>
+    <div class="outer">
+        <div class="container">
+            <h1>Weather Check In App</h1>
+            <div id="spinner" class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div id="data" style="display: none">
+                <p>
+                    <span id="latitude">Your Current Latitude: </span>&deg;</br>
+                    <span id="longitude">Your Current Longitude: </span>&deg;
+                </p>
+                <div class="text">
+                    <div>The weather in <span id="location"></span> is: <span id="summary"></span></div>
+                    <div>With a temperature of: <span id="temperature"></span>&deg; Fahrenheit</div>
+                </div>
+                <div class="text">
+                    <span>
+                        <span id="air"></span></br>
+                    </span>
+                </div>
+            </div>
+            <button id="submit">Check In</button>
+            <button onclick="signOut()">log out</button>
+        </div>
+    </div>
+</body>
+<script src="./js/Google-login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </html>

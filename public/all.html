@@ -21,11 +21,22 @@
     </head>
     <body>
         <nav class="navbar">
-            <span><i class="fa fa-cloud"></i>Weather Checkin App</span>
+            <span id="title"><i class="fa fa-cloud"></i>Weather Checkin App</span>
             <ul class="nav-links">
-                <a href="/"><li class="nav-item">Check In</li></a>
-                <a href="/all.html"><li class="nav-item">Map</li></a>
+                <a href="/">
+                    <li class="nav-item">Check In</li>
+                </a>
+                <a href="/all.html">
+                    <li class="nav-item">Map</li>
+                </a>
+                <div class="g-signin2 show" data-onsuccess="onSignIn" id="login"></div>
+                <i class="fa fa-user-circle-o hidden" id="profile" style="font-size:30px;"></i>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
         <h1>Map of Check Ins</h1>
         <div id="map"></div>

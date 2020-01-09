@@ -26,7 +26,7 @@ if('geolocation' in navigator){
 
             try{
                 air = json.airQuality.results[0].measurements[0];
-                document.getElementById('air').textContent = air.value + air.unit;
+                document.getElementById('air').textContent = "The air quality is: " + air.value + air.unit;
             } catch {
                 document.getElementById('air').textContent = "Cannot get air quality in your area";
             }
