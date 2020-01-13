@@ -1,7 +1,9 @@
+let modalOpen = false;
+
 const navSlide = () => {
     const burger = document.querySelector(".burger");
     const nav = document.querySelector(".nav-links");
-    const navLinks = document.querySelectorAll(".nav-links a, .nav-links div.g-signin2");
+    const navLinks = document.querySelectorAll(".nav-links a, .nav-links div.g-signin2, #profile");
     let i = 1;
 
     // window.addEventListener('resize',()=>{nav.style.transform})
@@ -20,6 +22,18 @@ const navSlide = () => {
         burger.classList.toggle("toggle");
         i++;
     })
+
+    profileModal = document.getElementById("profileModal");
+    window.onclick = (event) => {
+        if(event.target == document.getElementById("profile") ){
+            profileModal.classList.remove("hidden");
+            modalOpen = !modalOpen;
+        } else if (event.target != document.getElementById("profileModal") && event.target != document.getElementById("profileModalName") && event.target != document.getElementById("profileModalEmail") && event.target != document.getElementById("profileModalIMG") && event.target != document.getElementById("profileModalInfo"))
+        {
+            profileModal.classList.add("hidden");
+            modalOpen = !modalOpen;
+        }
+    }
 }
 
 navSlide();

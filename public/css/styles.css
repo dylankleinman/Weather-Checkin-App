@@ -12,7 +12,7 @@ body{
     text-align: center;
 }
 .container {
-    background-color: #5BC0BE;
+    background-color: rgb(91, 163, 192);
     border-radius: 10px;
     border: 0.5px solid #1C2541;
     box-shadow: 5px 5px 10px #1C2541;
@@ -25,11 +25,28 @@ body{
 
 #submit{
     background: transparent;
-    width: 75px;
     border: 1px solid black;
     border-radius: 5px;
+    padding: 8px 14px;
 }
 
 #submit:hover{
     cursor: pointer;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.flex-item{
+    width: 400px;
+    height: 200px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 50px 10px;
+    text-align: center;
+    align-self: center;
 }

@@ -32,8 +32,18 @@
                     <li class="nav-item">Map</li>
                 </a>
                 <div class="g-signin2 show" data-onsuccess="onSignIn" id="login"></div>
-                <i class="fa fa-user-circle-o hidden" id="profile" style="font-size:30px;"></i>
+                <img class="hidden" id="profile" src="" width="35px" height='35px'></img>
             </ul>
+            <div class="hidden profileModal" id="profileModal">
+                <div class="profileModalInfo" id="profileModalInfo">
+                    <img class="profileModalIMG" id="profileModalIMG" src="" width="40px" height="40px"></img>
+                    <div style="margin: 10px 0px">
+                        <div id="profileModalName"></div>
+                        <div id="profileModalEmail"></div>
+                    </div>
+                    <button onclick="signOut()" class="signOut">Sign Out</button>
+                </div>
+            </div>
             <div class="burger">
                 <div class="line1"></div>
                 <div class="line2"></div>
@@ -43,6 +53,7 @@
         <div id="map"></div>
         <script src="./js/Mapping.js"></script>
         <script src="js/Nav.js"></script>
+        <script src="./js/Google-login.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcfcL6jZ4nbSPk9eFcniVxMVwWJWW4syY&callback=initMap"
         async defer></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>

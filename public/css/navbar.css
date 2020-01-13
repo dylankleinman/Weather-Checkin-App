@@ -62,7 +62,9 @@
 .show {
     display: block;
     margin: 0px 20px;
+    border-radius: 17px;
 }
+
 
 .burger{
     display: none;
@@ -75,6 +77,43 @@
     background-color: rgb(214, 204, 204);
     margin: 5px;
     transition: all 0.3s ease;
+}
+
+.profileModal{
+    position: absolute;
+    right:8px;
+    top: 86px;
+    border: 1px solid #ccc;
+    border-color: rgba(0,0,0,.2);
+    background: #fff;
+    color: #000;
+    z-index: 999;
+    line-height: normal;
+    display: block;
+    width: 300px;
+    max-height: calc(100vh - 62px - 100px);
+    border-radius: 8px;
+    margin-left: 12px;
+}
+
+.profileModalInfo{
+    margin: 20px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.profileModalIMG{
+    border-radius: 20px;
+}
+
+.signOut{
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    letter-spacing: .15px;
+    padding: 10px 24px;
+    cursor: pointer;
+    font: 500 14px/16px Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
 @media screen and (max-width:768px){
@@ -100,7 +139,7 @@
         z-index: 100;
     }
 
-    .nav-links a, .nav-links div.g-signin2 {
+    .nav-links a, .nav-links div.g-signin2, #profile {
         opacity: 0;
     }
 
@@ -117,7 +156,6 @@
 
 .nav-active{
     transform: translateX(0%);
-    /* transition: transform 0.5s ease-in; */
 }
 
 @keyframes navLinkFadeIn {

@@ -50,7 +50,7 @@ app.get("/api", (request, response) => {
         var dbo = db.db("WeatherCheckInDB");
         dbo.collection("checkIns").find({}).toArray(function(err, result) {
             if (err) throw err;
-            console.log(result);
+            console.log('results successfully retreived');
             response.json(result);
             db.close();
         });
