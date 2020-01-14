@@ -38,11 +38,15 @@ if('geolocation' in navigator){
         }
 
         document.getElementById("submit").addEventListener("click", async function(){
+            const firstName = (signedIn) ? profile.ofa : 'Anonymous';
+            const Image = (signedIn) ? profile.getImageUrl() : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
             const data = {
             lat,
             lon,
             weather,
-            air
+            air,
+            firstName,
+            Image
             }
             const options = {
                 method: 'post',

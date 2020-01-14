@@ -14,12 +14,14 @@
 </head>
 
 <body>
-    <script src="./js/checkin.js"></script>
     <nav class="navbar">
         <span id="title"><i class="fa fa-cloud"></i>Weather Checkin App</span>
         <ul class="nav-links">
             <a href="/">
                 <li class="nav-item">Check In</li>
+            </a>
+            <a href="/list.html">
+                <li class="nav-item">List</li>
             </a>
             <a href="/all.html">
                 <li class="nav-item">Map</li>
@@ -46,6 +48,7 @@
     <div class="outer">
         <div class="container">
             <h1>Hello<span id="userName"></span>!</h1>
+            <p style="font-size: 13px;">The weather check in app is for users around the world to check in with their current weather, location, and air quality.  Log in with google to add your First Name and profile picture, otherwise you may stay anonymous.  Here is your current information: </p>
             <div id="spinner" class="lds-ellipsis">
                 <div></div>
                 <div></div>
@@ -71,8 +74,12 @@
         </div>
     </div>
 </body>
+<script>
+    let profile, signedIn = false;
+</script>
 <script src="js/Nav.js"></script>
 <script src="./js/Google-login.js"></script>
+<script src="./js/checkin.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 </html>

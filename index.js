@@ -19,7 +19,7 @@ const mongodbURL = 'mongodb+srv://dindinnn2:TestPassword123@cluster0-ahdgl.gcp.m
 app.post('/api', (request, response) => {
     const data = request.body;
     console.log('request to post: ' , data);
-    const timeStamp = Date.now();
+    const timeStamp = Date();
     data.timestamp = timeStamp  //add timestamp to our data
     //database.insert(data);  //insert data into db file (deprecated, now using mongodb)
 
