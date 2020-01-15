@@ -15,8 +15,8 @@
 
 <body>
     <nav class="navbar">
-        <span id="title"><i class="fa fa-cloud"></i>Weather Checkin App</span>
-        <ul class="nav-links">
+        <span id="title"><a href="/"><i class="fa fa-cloud"></i>Weather Checkin App</a></span>
+        <ul class="nav-links" id="nav-links">
             <a href="/">
                 <li class="nav-item">Check In</li>
             </a>
@@ -45,18 +45,12 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <div class="flex-container">
-        <div class="flex-item">
-            <h1>Dylan</h1>
-            <p>Checkin Date: </p>
-            <p>Location: </p>
-            <p>Weather:</p>
-        </div>
-        <div class="flex-item">
-            hello
-        </div>
-        <div class="flex-item">
-            hello
+    <div class="flex-container" id="container">
+        <div id="spinner" class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
 </body>
@@ -68,11 +62,15 @@ fetch('/api').then(res=> {
     return res.json();
 }).then(data => {
     data.forEach(element => {
-        var latLng = new google.maps.LatLng(element.lat, element.lon);
-        var marker = new google.maps.Marker({
-            position: latLng,
-            map: map
-        });
+        document.getElementById("spinner").style.display = "none";
+        document.getElementById("container").innerHTML += `
+        <div class='flex-item'>
+            <img class="profileModalIMG" id="profileModalIMG" src="${element.Image}" width="40px" height="40px"></img>
+            <h1>${element.firstName}</h1>
+            <p>Checkin Date: ${element.timestamp}</p>
+            <p>Location: ${element.weather.timezone}</p>
+            <p>Weather: ${element.weather.currently.summary}</p>
+        </div>`;
     });
 }).catch(err => {
     console.log(err);

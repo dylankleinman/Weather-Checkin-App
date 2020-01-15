@@ -44,12 +44,20 @@ body{
 .flex-item{
     width: 100%;
     background-color: white;
-    border: 1px solid #ccc;
+    border: 1px solid gray;
     margin: 30px 50px;
     padding: 10px;
     text-align: center;
     border-radius: 8px;
-    box-shadow: 5px 2px 5px #ccc;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4S);
+}
+
+.flex-item h1{
+    margin: 5px 0px;
+}
+
+.flex-item img {
+    margin-top: 10px;
 }
 
 #data{

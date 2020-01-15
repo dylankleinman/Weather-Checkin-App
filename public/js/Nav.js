@@ -1,5 +1,12 @@
 let modalOpen = false;
 
+//if the user hasn't signed in, show the nav-bar with sign in button
+if(!sessionStorage.getItem("signedIn")){
+    document.getElementById("nav-links").style.display = "flex";
+}
+
+console.log(sessionStorage.getItem("signedIn"));
+
 const navSlide = () => {
     const burger = document.querySelector(".burger");
     const nav = document.querySelector(".nav-links");

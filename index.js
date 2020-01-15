@@ -37,14 +37,6 @@ app.post('/api', (request, response) => {
 });
 
 app.get("/api", (request, response) => {
-    //console.log('request to get database');
-    // database.find({}, (error, data) => {
-    //     if(error){
-    //         response.end();
-    //         return;
-    //     }
-    //     response.json(data);
-    // });
     MongoClient.connect(mongodbURL, function(err, db) {
         if (err) throw err;
         var dbo = db.db("WeatherCheckInDB");
